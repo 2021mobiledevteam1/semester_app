@@ -23,6 +23,9 @@ class TheRoom {
         @Query("SELECT * FROM file WHERE fid IN (:files)")
         fun getFilesByIds(files: IntArray): List<File>
 
+        @Query("SELECT * FROM file WHERE fid = :fileId")
+        fun getFileById(fileId: Int): File
+
         @Query("SELECT * FROM file WHERE file_name LIKE :fName")
         fun getFileByName(fName: String): File
 
