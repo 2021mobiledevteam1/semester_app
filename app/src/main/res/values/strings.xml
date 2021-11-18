@@ -46,5 +46,5 @@
 
     <string name="signup_invalid">Invalid credentials. Please try again.</string>
     <string name="signup_button">Sign up</string>
-<!--    <string name="signup_activity_signup">signup</string>-->
+    <!--    <string name="signup_activity_signup">signup</string>-->
 </resources>
