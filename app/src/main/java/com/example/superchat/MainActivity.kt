@@ -15,5 +15,6 @@ class MainActivity : AppCompatActivity() {
         ).build()
 
         //TODO: Create Dao objects for each table once database is finished.
+        //hi
     }
 }
