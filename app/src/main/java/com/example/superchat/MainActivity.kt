@@ -1,6 +1,7 @@
 package com.example.superchat
 
 import android.os.Bundle
+<<<<<<< HEAD
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.superchat.databinding.ActivityMainBinding
@@ -12,6 +13,9 @@ import io.getstream.chat.android.livedata.ChatDomain
 import io.getstream.chat.android.ui.channel.list.viewmodel.ChannelListViewModel
 import io.getstream.chat.android.ui.channel.list.viewmodel.bindView
 import io.getstream.chat.android.ui.channel.list.viewmodel.factory.ChannelListViewModelFactory
+=======
+import androidx.room.Room
+>>>>>>> sqlite_setup
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+<<<<<<< HEAD
 
         // Step 0 - inflate binding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -70,5 +75,16 @@ class MainActivity : AppCompatActivity() {
         binding.channelListView.setChannelItemClickListener { channel ->
             startActivity(ChannelActivity.newIntent(this, channel))
         }
+=======
+        setContentView(R.layout.activity_main)
+
+        val db = Room.databaseBuilder(
+            applicationContext,
+            TheRoom.AppDatabase::class.java, "superchat"
+        ).build()
+
+        //TODO: Create Dao objects for each table once database is finished.
+        //hi
+>>>>>>> sqlite_setup
     }
 }
