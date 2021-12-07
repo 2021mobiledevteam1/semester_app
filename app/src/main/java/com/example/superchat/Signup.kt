@@ -38,19 +38,21 @@ class Signup : AppCompatActivity() {
                 extraData = mutableMapOf(
                     "nickname" to binding.editTextTextPersonName.text.toString(), //nickname can be non-unique. It doesn't matter what your nickname is!
                     "password" to binding.editTextTextPassword2.text.toString(), //password may need hashing of some sort
-                    "friends" to ArrayList<String>() //empty arraylist to store references to friend IDs!
+                    "friends" to ArrayList<String>(), //empty arraylist to store references to friend IDs!
+                    "pfp" to ""
                 )
             )
 
-            //dev token for now I guess
+            //dev token so we dont need an endpoint
             val token = client.devToken(userInfo.id)
 
-            //Maybe create token for this user unless we decide against it
+            //unless.. Maybe create token for this user unless we decide against it but-
 
             //TODO: Check to see if this user already exists based on id
 
             // create user
             client.connectUser(userInfo, token).enqueue { /* ... */ }
+            client.disconnect() //logout right away
 
             //go back to login
             val intent = Intent(this, m::class.java)
