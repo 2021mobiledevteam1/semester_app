@@ -1,6 +1,7 @@
 package com.example.superchat
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.superchat.databinding.ActivityMainBinding
@@ -13,6 +14,7 @@ import io.getstream.chat.android.ui.channel.list.viewmodel.ChannelListViewModel
 import io.getstream.chat.android.ui.channel.list.viewmodel.bindView
 import io.getstream.chat.android.ui.channel.list.viewmodel.factory.ChannelListViewModelFactory
 import androidx.room.Room
+import io.getstream.chat.android.client.api.models.QueryUsersRequest
 
 
 class MainActivity : AppCompatActivity() {
@@ -55,29 +57,7 @@ class MainActivity : AppCompatActivity() {
         */
 
 
-        client.connectUser(
-            user = user,
-            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidHV0b3JpYWwtZHJvaWQifQ.NhEr0hP9W9nwqV7ZkdShxvi02C5PR7SJE7Cs4y7kyqg"
-        ).enqueue()
 
-        // Step 3 - Set the channel list filter and order
-        // This can be read as requiring only channels whose "type" is "messaging" AND
-        // whose "members" include our "user.id"
-        val filter = Filters.and(
-            Filters.eq("type", "messaging"),
-            Filters.`in`("members", listOf(user.id))
-        )
-        val viewModelFactory = ChannelListViewModelFactory(filter, ChannelListViewModel.DEFAULT_SORT)
-        val viewModel: ChannelListViewModel by viewModels { viewModelFactory }
-
-        // Step 4 - Connect the ChannelListViewModel to the ChannelListView, loose
-        //          coupling makes it easy to customize
-        viewModel.bindView(binding.channelListView, this)
-        binding.channelListView.setChannelItemClickListener { channel ->
-            startActivity(ChannelActivity.newIntent(this, channel))
-        }
-
-        setContentView(R.layout.activity_main)
 
         val db = Room.databaseBuilder(
             applicationContext,
@@ -86,6 +66,50 @@ class MainActivity : AppCompatActivity() {
 
         //TODO: Create Dao objects for each table once database is finished.
         //hi
+
+        binding.button.setOnClickListener {
+            val uNameTxt = binding.loginEmailInput.text.toString()
+            val pwTxt = binding.editTextTextPassword.text.toString()
+
+
+            val request = QueryUsersRequest(
+                filter = Filters.`in`("id", listOf(uNameTxt)),
+                offset = 0,
+                limit = 1,
+            )
+
+            client.queryUsers(request).enqueue { result ->
+                if (result.isSuccess) {
+                    val user: User = result.data()[0]
+
+
+                    client.connectUser(
+                        user = user,
+                        token = client.devToken(user.id)
+                    ).enqueue()
+
+                    // Step 3 - Set the channel list filter and order
+                    // This can be read as requiring only channels whose "type" is "messaging" AND
+                    // whose "members" include our "user.id"
+                    val filter = Filters.and(
+                        Filters.eq("type", "messaging"),
+                        Filters.`in`("members", listOf(user.id))
+                    )
+                    val viewModelFactory = ChannelListViewModelFactory(filter, ChannelListViewModel.DEFAULT_SORT)
+                    val viewModel: ChannelListViewModel by viewModels { viewModelFactory }
+
+                    // Step 4 - Connect the ChannelListViewModel to the ChannelListView, loose
+                    //          coupling makes it easy to customize
+                    viewModel.bindView(binding.channelListView, this)
+                    binding.channelListView.setChannelItemClickListener { channel ->
+                        startActivity(ChannelActivity.newIntent(this, channel))
+                    }
+                } else {
+                    // Handle result.error()
+                    Toast.makeText(this@MainActivity, "Invalid Login!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
     }
 }
