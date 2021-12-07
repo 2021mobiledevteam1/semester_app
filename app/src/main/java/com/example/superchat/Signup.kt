@@ -36,6 +36,7 @@ class Signup : AppCompatActivity() {
             userInfo = User(
                 id = binding.signupEmailAddress.text.toString(), //temporary? we might wanna use the email as ID or otherwise we can set the email as "name" and programmatically generate ids or smth
                 extraData = mutableMapOf(
+                    "name" to binding.signupEmailAddress.text.toString(), //unique email username
                     "nickname" to binding.editTextTextPersonName.text.toString(), //nickname can be non-unique. It doesn't matter what your nickname is!
                     "password" to binding.editTextTextPassword2.text.toString(), //password may need hashing of some sort
                     "friends" to ArrayList<String>(), //empty arraylist to store references to friend IDs!
