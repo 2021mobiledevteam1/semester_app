@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 //        val token = client.devToken(user.id)
 //        client.connectUser(user, token).enqueue()
 
-
+        /*
         // Step 2 - Authenticate and connect the user
         val user = User(
             id = "tutorial-droid",
@@ -52,6 +52,8 @@ class MainActivity : AppCompatActivity() {
                 "image" to "https://bit.ly/2TIt8NR",
             ),
         )
+        */
+
 
         client.connectUser(
             user = user,
