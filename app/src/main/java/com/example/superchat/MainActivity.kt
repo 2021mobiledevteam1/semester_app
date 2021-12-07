@@ -1,7 +1,6 @@
 package com.example.superchat
 
 import android.os.Bundle
-<<<<<<< HEAD
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.superchat.databinding.ActivityMainBinding
@@ -13,9 +12,8 @@ import io.getstream.chat.android.livedata.ChatDomain
 import io.getstream.chat.android.ui.channel.list.viewmodel.ChannelListViewModel
 import io.getstream.chat.android.ui.channel.list.viewmodel.bindView
 import io.getstream.chat.android.ui.channel.list.viewmodel.factory.ChannelListViewModelFactory
-=======
 import androidx.room.Room
->>>>>>> sqlite_setup
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-<<<<<<< HEAD
 
         // Step 0 - inflate binding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -33,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val client = ChatClient.Builder("b67pax5b2wdq", applicationContext)
             .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
             .build()
-        ChatDomain.Builder(client, applicationContext).build()
+       ChatDomain.Builder(client, applicationContext).build()
 
 //        // Step 2 - Make developer user and connect them
 //        val user = User(
@@ -46,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 //        val token = client.devToken(user.id)
 //        client.connectUser(user, token).enqueue()
 
+
         // Step 2 - Authenticate and connect the user
         val user = User(
             id = "tutorial-droid",
@@ -54,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 "image" to "https://bit.ly/2TIt8NR",
             ),
         )
+
         client.connectUser(
             user = user,
             token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidHV0b3JpYWwtZHJvaWQifQ.NhEr0hP9W9nwqV7ZkdShxvi02C5PR7SJE7Cs4y7kyqg"
@@ -75,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         binding.channelListView.setChannelItemClickListener { channel ->
             startActivity(ChannelActivity.newIntent(this, channel))
         }
-=======
+
         setContentView(R.layout.activity_main)
 
         val db = Room.databaseBuilder(
@@ -85,6 +84,6 @@ class MainActivity : AppCompatActivity() {
 
         //TODO: Create Dao objects for each table once database is finished.
         //hi
->>>>>>> sqlite_setup
+
     }
 }
