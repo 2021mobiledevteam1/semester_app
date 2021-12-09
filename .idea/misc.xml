@@ -3,9 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
+        <entry key="..\:/Users/Andrew Doepke/OneDrive/Documents/School/App Dev/Team Project/semester_app/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Andrew Doepke/OneDrive/Documents/School/App Dev/Team Project/semester_app/semester_app/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Andrew Doepke/OneDrive/Documents/School/App Dev/Team Project/semester_app/semester_app/app/src/main/res/layout/activity_signup.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/krona/StudioProjects/semester_app/app/src/main/res/layout/activity_channel.xml" value="0.17300724637681159" />
+        <entry key="..\:/Users/krona/StudioProjects/semester_app/app/src/main/res/layout/activity_chat.xml" value="0.17300724637681159" />
+        <entry key="..\:/Users/krona/StudioProjects/semester_app/app/src/main/res/layout/activity_main.xml" value="0.17300724637681159" />
+=======
         <entry key="app/src/main/res/layout/activity_channel.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/activity_manage_friends.xml" value="0.38839936052254326" />
+>>>>>>> UI_activities
       </map>
     </option>
   </component>
