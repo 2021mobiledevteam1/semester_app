@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity() {
         //TODO: make sure database is accessible from everywhere
         //hi
 
-        
+
         //if we are already logged in, do it
         if (sp.getBoolean("logged", false)) {
             login(client, sp.getString("currUser", "")!!, "b67pax5b2wdq") //login using stored user

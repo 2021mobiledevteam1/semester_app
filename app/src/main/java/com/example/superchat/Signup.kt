@@ -10,6 +10,7 @@ import io.getstream.chat.android.client.models.User
 import io.getstream.chat.android.livedata.ChatDomain
 import com.example.superchat.MainActivity as m
 import android.content.SharedPreferences
+import com.example.superchat.Friend
 
 
 
@@ -43,7 +44,7 @@ class Signup : AppCompatActivity() {
                     "name" to binding.signupEmailAddress.text.toString(), //unique email username
                     "nickname" to binding.editTextTextPersonName.text.toString(), //nickname can be non-unique. It doesn't matter what your nickname is!
                     "password" to binding.editTextTextPassword2.text.toString(), //password may need hashing of some sort
-                    "friends" to ArrayList<String>(), //empty arraylist to store references to friend IDs!
+                    "friends" to ArrayList<Friend>(), //empty arraylist to store references to friend IDs! Stores a friend object
                     "pfp" to ""
                 )
             )
