@@ -9,6 +9,10 @@ import io.getstream.chat.android.client.logger.ChatLogLevel
 import io.getstream.chat.android.client.models.User
 import io.getstream.chat.android.livedata.ChatDomain
 import com.example.superchat.MainActivity as m
+import android.content.SharedPreferences
+
+
+
 
 class Signup : AppCompatActivity() {
 
@@ -58,7 +62,6 @@ class Signup : AppCompatActivity() {
             //go back to login
             val intent = Intent(this, m::class.java)
             startActivity(intent)
-
         } //end button binding
     }
 }
