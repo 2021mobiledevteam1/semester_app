@@ -45,7 +45,7 @@ class Signup : AppCompatActivity() {
                     "nickname" to binding.editTextTextPersonName.text.toString(), //nickname can be non-unique. It doesn't matter what your nickname is!
                     "password" to binding.editTextTextPassword2.text.toString(), //password may need hashing of some sort
                     "friends" to ArrayList<Friend>(), //empty arraylist to store references to friend IDs! Stores a friend object
-                    "pfp" to ""
+                    "pfp" to "" //Store b64 string for downscaled profile picture
                 )
             )
 
