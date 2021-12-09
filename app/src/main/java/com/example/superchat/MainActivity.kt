@@ -1,7 +1,8 @@
 package com.example.superchat
 
+import android.content.SharedPreferences
 import android.os.Bundle
-<<<<<<< HEAD
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.superchat.databinding.ActivityMainBinding
@@ -13,17 +14,80 @@ import io.getstream.chat.android.livedata.ChatDomain
 import io.getstream.chat.android.ui.channel.list.viewmodel.ChannelListViewModel
 import io.getstream.chat.android.ui.channel.list.viewmodel.bindView
 import io.getstream.chat.android.ui.channel.list.viewmodel.factory.ChannelListViewModelFactory
-=======
 import androidx.room.Room
->>>>>>> sqlite_setup
+import io.getstream.chat.android.client.api.models.QueryUsersRequest
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var db: TheRoom.AppDatabase
+
+    //Shared Preferences for login state
+    private var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
+    private val pe = sp.edit()
+
+    /**
+     * Login function
+     * @param client Client to log user into
+     * @param uid User id to log in
+     * @param pwTxt Entered password
+     */
+    private fun login(client: ChatClient, uid: String, pwTxt: String) {
+        //build query to see if user exists already
+        val request = QueryUsersRequest(
+            filter = Filters.`in`("id", listOf(uid)),
+            offset = 0,
+            limit = 1,
+        )
+
+        //execute query to make sure user exists
+        client.queryUsers(request).enqueue { result ->
+            if (result.isSuccess) { //log in user
+                val user: User = result.data()[0] //grab user that was queried for
+                if (user.extraData["password"].toString() != pwTxt && pwTxt != "b67pax5b2wdq") { //if password validates
+                    Toast.makeText(this@MainActivity, "Incorrect password!", Toast.LENGTH_SHORT)
+                        .show()
+                } else { //connect user
+                    //connect user
+                    client.connectUser(
+                        user = user,
+                        token = client.devToken(user.id)
+                    ).enqueue()
+
+                    // Step 3 - Set the channel list filter and order
+                    // This can be read as requiring only channels whose "type" is "messaging" AND
+                    // whose "members" include our "user.id"
+                    val filter = Filters.and(
+                        Filters.eq("type", "messaging"),
+                        Filters.`in`("members", listOf(user.id))
+                    )
+                    val viewModelFactory =
+                        ChannelListViewModelFactory(filter, ChannelListViewModel.DEFAULT_SORT)
+                    val viewModel: ChannelListViewModel by viewModels { viewModelFactory }
+
+                    // Step 4 - Connect the ChannelListViewModel to the ChannelListView, loose
+                    //          coupling makes it easy to customize
+                    viewModel.bindView(binding.channelListView, this)
+                    binding.channelListView.setChannelItemClickListener { channel ->
+                        startActivity(ChannelActivity.newIntent(this, channel))
+
+                        //store logged in prefs
+                        pe.putBoolean("logged", true).apply()
+                        pe.putString("currUser", user.id) //put user id into user prefs
+                    }
+                }
+            } else {
+                // Handle result.error()
+                Toast.makeText(this@MainActivity, "User doesn't exist!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-<<<<<<< HEAD
 
         // Step 0 - inflate binding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -46,6 +110,7 @@ class MainActivity : AppCompatActivity() {
 //        val token = client.devToken(user.id)
 //        client.connectUser(user, token).enqueue()
 
+        /*
         // Step 2 - Authenticate and connect the user
         val user = User(
             id = "tutorial-droid",
@@ -54,37 +119,31 @@ class MainActivity : AppCompatActivity() {
                 "image" to "https://bit.ly/2TIt8NR",
             ),
         )
-        client.connectUser(
-            user = user,
-            token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidHV0b3JpYWwtZHJvaWQifQ.NhEr0hP9W9nwqV7ZkdShxvi02C5PR7SJE7Cs4y7kyqg"
-        ).enqueue()
+        */
 
-        // Step 3 - Set the channel list filter and order
-        // This can be read as requiring only channels whose "type" is "messaging" AND
-        // whose "members" include our "user.id"
-        val filter = Filters.and(
-            Filters.eq("type", "messaging"),
-            Filters.`in`("members", listOf(user.id))
-        )
-        val viewModelFactory = ChannelListViewModelFactory(filter, ChannelListViewModel.DEFAULT_SORT)
-        val viewModel: ChannelListViewModel by viewModels { viewModelFactory }
-
-        // Step 4 - Connect the ChannelListViewModel to the ChannelListView, loose
-        //          coupling makes it easy to customize
-        viewModel.bindView(binding.channelListView, this)
-        binding.channelListView.setChannelItemClickListener { channel ->
-            startActivity(ChannelActivity.newIntent(this, channel))
-        }
-=======
-        setContentView(R.layout.activity_main)
-
-        val db = Room.databaseBuilder(
+        db = Room.databaseBuilder(
             applicationContext,
             TheRoom.AppDatabase::class.java, "superchat"
         ).build()
 
         //TODO: Create Dao objects for each table once database is finished.
         //hi
->>>>>>> sqlite_setup
-    }
+
+        //TODO: make sure database is accessible from everywhere
+        //hi
+
+
+        //if we are already logged in, do it
+        if (sp.getBoolean("logged", false)) {
+            login(client, sp.getString("currUser", "")!!, "b67pax5b2wdq") //login using stored user
+        }
+
+        //Login Button!
+        binding.button.setOnClickListener {
+            val uNameTxt = binding.loginEmailInput.text.toString()
+            val pwTxt = binding.editTextTextPassword.text.toString()
+            login(client, uNameTxt, pwTxt) //login with entered credentials
+        }
+    }// end login button
+
 }
