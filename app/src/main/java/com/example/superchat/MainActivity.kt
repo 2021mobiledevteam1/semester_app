@@ -16,12 +16,12 @@ import io.getstream.chat.android.ui.channel.list.viewmodel.bindView
 import io.getstream.chat.android.ui.channel.list.viewmodel.factory.ChannelListViewModelFactory
 import androidx.room.Room
 import io.getstream.chat.android.client.api.models.QueryUsersRequest
-import com.google.gson.Gson
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var db: TheRoom.AppDatabase
 
     //Shared Preferences for login state
     private var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
      * @param uid User id to log in
      * @param pwTxt Entered password
      */
-    private fun login(client: ChatClient, uid: String, pwTxt: String){
+    private fun login(client: ChatClient, uid: String, pwTxt: String) {
         //build query to see if user exists already
         val request = QueryUsersRequest(
             filter = Filters.`in`("id", listOf(uid)),
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                         startActivity(ChannelActivity.newIntent(this, channel))
 
                         //store logged in prefs
-                        pe.putBoolean("logged", true).apply();
+                        pe.putBoolean("logged", true).apply()
                         pe.putString("currUser", user.id) //put user id into user prefs
                     }
                 }
@@ -84,6 +84,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         val client = ChatClient.Builder("b67pax5b2wdq", applicationContext)
             .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
             .build()
-       ChatDomain.Builder(client, applicationContext).build()
+        ChatDomain.Builder(client, applicationContext).build()
 
 //        // Step 2 - Make developer user and connect them
 //        val user = User(
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         )
         */
 
-        val db = Room.databaseBuilder(
+        db = Room.databaseBuilder(
             applicationContext,
             TheRoom.AppDatabase::class.java, "superchat"
         ).build()
@@ -128,8 +129,12 @@ class MainActivity : AppCompatActivity() {
         //TODO: Create Dao objects for each table once database is finished.
         //hi
 
+        //TODO: make sure database is accessible from everywhere
+        //hi
+
+        
         //if we are already logged in, do it
-        if(sp.getBoolean("logged", false)){
+        if (sp.getBoolean("logged", false)) {
             login(client, sp.getString("currUser", "")!!, "b67pax5b2wdq") //login using stored user
         }
 
@@ -138,10 +143,7 @@ class MainActivity : AppCompatActivity() {
             val uNameTxt = binding.loginEmailInput.text.toString()
             val pwTxt = binding.editTextTextPassword.text.toString()
             login(client, uNameTxt, pwTxt) //login with entered credentials
-            }
-        }// end login button
+        }
+    }// end login button
 
-        //check if logged in after loading the
-
-    }
 }
