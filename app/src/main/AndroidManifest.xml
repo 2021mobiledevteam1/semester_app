@@ -19,7 +19,6 @@
             android:name=".ManageFriends"
             android:exported="true" />
         <activity
-        <activity
             android:name=".chat"
             android:exported="true" />
         <activity
