@@ -14,6 +14,10 @@
         android:theme="@style/Theme.SuperChat">
         <activity
             android:name=".ChannelActivity"
+            android:name=".ManageFriends"
+            android:exported="true" />
+        <activity
+            android:name=".chat"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
