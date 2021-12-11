@@ -16,10 +16,13 @@
             android:name=".ChannelActivity"
             android:exported="true" />
         <activity
+            android:name=".Signup"
+            android:exported="true"/>
+        <activity
             android:name=".ManageFriends"
             android:exported="true" />
         <activity
-            android:name=".chat"
+            android:name=".Chat"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

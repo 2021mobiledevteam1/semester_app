@@ -1,5 +1,6 @@
 package com.example.superchat
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Toast
@@ -24,10 +25,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     //private lateinit var db: TheRoom.AppDatabase
 
-    //Shared Preferences for login state
-    private var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
-    private val pe = sp.edit()
-
     /**
      * Login function
      * @param client Client to log user into
@@ -35,6 +32,10 @@ class MainActivity : AppCompatActivity() {
      * @param pwTxt Entered password
      */
     private fun login(client: ChatClient, uid: String, pwTxt: String) {
+        //Shared Preferences for login state
+        var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
+        val pe = sp.edit()
+
         //build query to see if user exists already
         val request = QueryUsersRequest(
             filter = Filters.`in`("id", listOf(uid)),
@@ -88,6 +89,11 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        //Shared Preferences for login state
+        var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
+        val pe = sp.edit()
+
         super.onCreate(savedInstanceState)
 
         // Step 0 - inflate binding
@@ -142,6 +148,13 @@ class MainActivity : AppCompatActivity() {
             val uNameTxt = binding.loginEmailInput.text.toString()
             val pwTxt = binding.editTextTextPassword.text.toString()
             login(client, uNameTxt, pwTxt) //login with entered credentials
+        }
+
+        //Signup link
+        binding.textView5.setOnClickListener{
+            //go to signup
+            val intent = Intent(this, Signup::class.java)
+            startActivity(intent)
         }
     }// end login button
 
