@@ -1,5 +1,6 @@
 package com.example.superchat
 
+import android.content.Context
 import android.graphics.Bitmap
 import androidx.room.*
 
@@ -47,5 +48,18 @@ class TheRoom {
     )
     abstract class AppDatabase : RoomDatabase() { //add DAO objects to each table
         abstract fun fileDao(): FileDao
+
+        companion object {
+            @Volatile private var instance: AppDatabase? = null
+            private val LOCK = Any()
+
+            operator fun invoke(context: Context)= instance ?: synchronized(LOCK){
+                instance ?: buildDatabase(context).also { instance = it}
+            }
+
+            private fun buildDatabase(context: Context) = Room.databaseBuilder(context,
+                AppDatabase::class.java, "superchat")
+                .build()
+        }
     }
 }
