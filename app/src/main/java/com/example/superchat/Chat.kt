@@ -8,8 +8,5 @@ class Chat : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        val db = TheRoom.AppDatabase(this)
-        //dao
-        val fileDao = db.fileDao()
     }
 }

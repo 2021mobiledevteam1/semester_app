@@ -22,7 +22,7 @@ import io.getstream.chat.android.client.api.models.QueryUsersRequest
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var db: TheRoom.AppDatabase
+    //private lateinit var db: TheRoom.AppDatabase
 
     //Shared Preferences for login state
     private var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
@@ -122,14 +122,15 @@ class MainActivity : AppCompatActivity() {
         )
         */
 
+        /*
         db = TheRoom.AppDatabase(this)
         //dao
         val fileDao = db.fileDao()
 
 
-        //TODO: make sure database is accessible from everywhere
+        //make sure database is accessible from everywhere
         //hi
-
+        */
 
         //if we are already logged in, do it
         if (sp.getBoolean("logged", false)) {
