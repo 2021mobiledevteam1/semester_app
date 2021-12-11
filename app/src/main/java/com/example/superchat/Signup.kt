@@ -28,7 +28,7 @@ class Signup : AppCompatActivity() {
         setContentView(binding.root)
 
         // Step 1 - Set up the client for API calls and the domain for offline storage
-        val client = ChatClient.Builder("b67pax5b2wdq", applicationContext)
+        val client = ChatClient.Builder("vnnjqybjbun8", applicationContext)
             .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
             .build()
         val staticClientRef = ChatClient.instance()
@@ -50,15 +50,17 @@ class Signup : AppCompatActivity() {
             )
 
             //dev token so we dont need an endpoint
-            val token = client.devToken(userInfo.id)
+            val token = staticClientRef.devToken(userInfo.id)
 
             //unless.. Maybe create token for this user unless we decide against it but-
 
             //TODO: Check to see if this user already exists based on id
 
             // create user
-            client.connectUser(userInfo, token).enqueue { /* ... */ }
-            client.disconnect() //logout right away
+            staticClientRef.connectUser(userInfo, token).enqueue { /* ... */ }
+            print("HERE!!!\n")
+            print("Token: $token\n")
+            staticClientRef.disconnect() //logout right away
 
             //go back to login
             val intent = Intent(this, m::class.java)

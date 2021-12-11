@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun login(client: ChatClient, uid: String, pwTxt: String) {
         //Shared Preferences for login state
-        var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
+        val sp: SharedPreferences = getPreferences(MODE_PRIVATE)
         val pe = sp.edit()
 
         //build query to see if user exists already
@@ -52,10 +52,12 @@ class MainActivity : AppCompatActivity() {
                         .show()
                 } else { //connect user
                     //connect user
+                        val token = client.devToken(user.id)
+                        print("LOGIN TOKEN!! $token\n")
                     client.connectUser(
                         user = user,
-                        token = client.devToken(user.id)
-                    ).enqueue()
+                        token = token
+                    ).enqueue {/* ... */}
 
                     // Step 3 - Set the channel list filter and order
                     // This can be read as requiring only channels whose "type" is "messaging" AND
@@ -91,8 +93,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         //Shared Preferences for login state
-        var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
-        val pe = sp.edit()
+        val sp: SharedPreferences = getPreferences(MODE_PRIVATE)
 
         super.onCreate(savedInstanceState)
 
@@ -101,42 +102,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Step 1 - Set up the client for API calls and the domain for offline storage
-        val client = ChatClient.Builder("b67pax5b2wdq", applicationContext)
+        val client = ChatClient.Builder("vnnjqybjbun8", applicationContext)
             .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
             .build()
         ChatDomain.Builder(client, applicationContext).build()
 
-//        // Step 2 - Make developer user and connect them
-//        val user = User(
-//            id = "dev",
-//            extraData = mutableMapOf(
-//                "name" to "PopBob",
-//                "image" to "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Trollface_non-free.png/220px-Trollface_non-free.png",
-//            ),
-//        )
-//        val token = client.devToken(user.id)
-//        client.connectUser(user, token).enqueue()
-
-        /*
-        // Step 2 - Authenticate and connect the user
-        val user = User(
-            id = "tutorial-droid",
-            extraData = mutableMapOf(
-                "name" to "Tutorial Droid",
-                "image" to "https://bit.ly/2TIt8NR",
-            ),
-        )
-        */
-
-        /*
-        db = TheRoom.AppDatabase(this)
-        //dao
-        val fileDao = db.fileDao()
+        val cli = ChatClient.instance()
 
 
-        //make sure database is accessible from everywhere
-        //hi
-        */
 
         //if we are already logged in, do it
         if (sp.getBoolean("logged", false)) {
@@ -147,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             val uNameTxt = binding.loginEmailInput.text.toString()
             val pwTxt = binding.editTextTextPassword.text.toString()
-            login(client, uNameTxt, pwTxt) //login with entered credentials
+            login(cli, uNameTxt, pwTxt) //login with entered credentials
         }
 
         //Signup link
