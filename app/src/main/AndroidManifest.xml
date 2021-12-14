@@ -10,9 +10,12 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:screenOrientation="sensorPortrait"
+        android:supportsRtl="true"
         android:theme="@style/Theme.SuperChat">
+        <activity
+            android:name=".AddFriends"
+            android:exported="true" />
         <activity
             android:name=".ChannelActivity"
             android:exported="true" />
