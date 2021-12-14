@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.room.Dao
 import com.example.superchat.databinding.ActivityMainBinding
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.logger.ChatLogLevel
@@ -21,7 +22,7 @@ import io.getstream.chat.android.client.api.models.QueryUsersRequest
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var db: TheRoom.AppDatabase
+    //private lateinit var db: TheRoom.AppDatabase
 
     //Shared Preferences for login state
     private var sp: SharedPreferences = getPreferences(MODE_PRIVATE)
@@ -66,15 +67,15 @@ class MainActivity : AppCompatActivity() {
                         ChannelListViewModelFactory(filter, ChannelListViewModel.DEFAULT_SORT)
                     val viewModel: ChannelListViewModel by viewModels { viewModelFactory }
 
+                    //store logged in prefs
+                    pe.putBoolean("logged", true).apply()
+                    pe.putString("currUser", user.id) //put user id into user prefs
+
                     // Step 4 - Connect the ChannelListViewModel to the ChannelListView, loose
                     //          coupling makes it easy to customize
                     viewModel.bindView(binding.channelListView, this)
                     binding.channelListView.setChannelItemClickListener { channel ->
                         startActivity(ChannelActivity.newIntent(this, channel))
-
-                        //store logged in prefs
-                        pe.putBoolean("logged", true).apply()
-                        pe.putString("currUser", user.id) //put user id into user prefs
                     }
                 }
             } else {
@@ -121,17 +122,15 @@ class MainActivity : AppCompatActivity() {
         )
         */
 
-        db = Room.databaseBuilder(
-            applicationContext,
-            TheRoom.AppDatabase::class.java, "superchat"
-        ).build()
+        /*
+        db = TheRoom.AppDatabase(this)
+        //dao
+        val fileDao = db.fileDao()
 
-        //TODO: Create Dao objects for each table once database is finished.
+
+        //make sure database is accessible from everywhere
         //hi
-
-        //TODO: make sure database is accessible from everywhere
-        //hi
-
+        */
 
         //if we are already logged in, do it
         if (sp.getBoolean("logged", false)) {
