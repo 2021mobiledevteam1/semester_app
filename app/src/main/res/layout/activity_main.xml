@@ -94,9 +94,11 @@
         android:layout_marginEnd="100dp"
         android:text="@string/login_signup_link"
         android:textSize="16sp"
+        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/passwordLabel"
-        app:layout_constraintTop_toTopOf="@+id/passwordLabel" />
+        app:layout_constraintTop_toTopOf="@+id/passwordLabel"
+        android:focusable="true" />
 
     <Button
         android:id="@+id/button"
@@ -110,7 +112,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -120,5 +122,5 @@
         android:text="@string/login_invalid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
