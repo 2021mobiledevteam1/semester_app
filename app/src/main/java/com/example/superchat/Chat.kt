@@ -9,6 +9,10 @@ import io.getstream.chat.android.client.models.Filters
 import io.getstream.chat.android.ui.channel.list.viewmodel.ChannelListViewModel
 import io.getstream.chat.android.ui.channel.list.viewmodel.bindView
 import androidx.activity.viewModels
+import io.getstream.chat.android.client.ChatClient
+import io.getstream.chat.android.client.logger.ChatLogLevel
+import io.getstream.chat.android.client.models.User
+import io.getstream.chat.android.livedata.ChatDomain
 import io.getstream.chat.android.ui.channel.list.viewmodel.bindView
 import io.getstream.chat.android.ui.channel.list.viewmodel.factory.ChannelListViewModelFactory
 
@@ -18,6 +22,26 @@ class Chat : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
         val binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val client = ChatClient.Builder("rckbpcsvzx36", applicationContext)
+            .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
+            .build()
+        ChatDomain.Builder(client, applicationContext).build()
+
+        val cli = ChatClient.instance()
+
+        val user = User(
+            id = intent.getStringExtra("uid")!!
+        )
+
+        val token = intent.getStringExtra("token")!!
+
+        client.connectUser(
+            user = user,
+            token = token
+        ).enqueue {/* ... */}
+
+        print("Connected user successfully!\n")
 
         // Step 3 - Set the channel list filter and order
         // This can be read as requiring only channels whose "type" is "messaging" AND
