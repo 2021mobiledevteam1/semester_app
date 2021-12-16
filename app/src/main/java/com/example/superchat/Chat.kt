@@ -1,6 +1,7 @@
 package com.example.superchat
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -22,6 +23,9 @@ class Chat : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        //Shared Preferences for login state
+        val sp: SharedPreferences = getPreferences(MODE_PRIVATE)
+        val pe = sp.edit()
 
         val binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -80,6 +84,10 @@ class Chat : AppCompatActivity() {
 
         binding.logout.setOnClickListener{
             client.disconnect()
+
+            //store logged in prefs
+            pe.putBoolean("logged", false).apply()
+            pe.putString("currUser", "").apply() //put user id into user prefs
             //go back to login
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
