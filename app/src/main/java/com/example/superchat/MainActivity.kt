@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             if (user.extraData["password"].toString() == pwTxt || pwTxt == "b67pax5b2wdq") {
                 //store logged in prefs
                 pe.putBoolean("logged", true).apply()
-                pe.putString("currUser", user.id) //put user id into user prefs
+                pe.putString("currUser", user.id).apply() //put user id into user prefs
 
                 print("Going to the channel List\n")
                 //TODO Connects just fine, now we need to get it to display channels
@@ -100,10 +100,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
+        super.onCreate(savedInstanceState)
+
         //Shared Preferences for login state
         val sp: SharedPreferences = getPreferences(MODE_PRIVATE)
-
-        super.onCreate(savedInstanceState)
 
         // Step 0 - inflate binding
         binding = ActivityMainBinding.inflate(layoutInflater)
