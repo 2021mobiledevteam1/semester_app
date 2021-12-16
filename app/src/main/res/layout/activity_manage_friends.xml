@@ -81,37 +81,40 @@
                     android:maxLines="1"
                     android:text="Jessica Bliss"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintBottom_toBottomOf="@+id/bestFriend1ChatButton"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend1ChatButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                    app:layout_constraintTop_toTopOf="@+id/bestFriend1ChatButton" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/bestFriend1ChatButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend1StarButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/stat_notify_chat" />
+                    app:srcCompat="@android:drawable/stat_notify_chat"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/bestFriend1StarButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend1DeleteButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/btn_star" />
+                    app:srcCompat="@android:drawable/btn_star"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/bestFriend1DeleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stream_ui_ic_delete" />
+                    app:srcCompat="@drawable/stream_ui_ic_delete"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -127,37 +130,40 @@
                     android:maxLines="1"
                     android:text="Jane Doe"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintBottom_toBottomOf="@+id/bestFriend2ChatButton"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend2ChatButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                    app:layout_constraintTop_toTopOf="@+id/bestFriend2ChatButton" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/bestFriend2ChatButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend2StarButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/stat_notify_chat" />
+                    app:srcCompat="@android:drawable/stat_notify_chat"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/bestFriend2StarButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend2DeleteButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/btn_star" />
+                    app:srcCompat="@android:drawable/btn_star"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/bestFriend2DeleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stream_ui_ic_delete" />
+                    app:srcCompat="@drawable/stream_ui_ic_delete"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -174,37 +180,40 @@
                     android:text="John Smith"
                     android:maxLines="1"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintBottom_toBottomOf="@+id/bestFriend3ChatButton"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend3ChatButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                    app:layout_constraintTop_toTopOf="@+id/bestFriend3ChatButton" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/bestFriend3ChatButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend3StarButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/stat_notify_chat" />
+                    app:srcCompat="@android:drawable/stat_notify_chat"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/bestFriend3StarButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend3DeleteButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/btn_star" />
+                    app:srcCompat="@android:drawable/btn_star"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/bestFriend3DeleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stream_ui_ic_delete" />
+                    app:srcCompat="@drawable/stream_ui_ic_delete"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -221,44 +230,47 @@
                     android:text="Name Is Tooo Long"
                     android:maxLines="1"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintBottom_toBottomOf="@+id/bestFriend4ChatButton"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend4ChatButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                    app:layout_constraintTop_toTopOf="@+id/bestFriend4ChatButton" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/bestFriend4ChatButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend4StarButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/stat_notify_chat" />
+                    app:srcCompat="@android:drawable/stat_notify_chat"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/bestFriend4StarButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                    app:layout_constraintEnd_toStartOf="@+id/bestFriend4DeleteButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/btn_star" />
+                    app:srcCompat="@android:drawable/btn_star"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/bestFriend4DeleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stream_ui_ic_delete" />
+                    app:srcCompat="@drawable/stream_ui_ic_delete"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </ScrollView>
 
     <ScrollView
-        android:id="@+id/scrollView3"
+        android:id="@+id/allFriendsScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
@@ -275,12 +287,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/aLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="A" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -295,37 +301,40 @@
                     android:maxLines="1"
                     android:text="Anna Bell"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintBottom_toBottomOf="@+id/friend1ChatButton"
+                    app:layout_constraintEnd_toStartOf="@+id/friend1ChatButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                    app:layout_constraintTop_toTopOf="@+id/friend1ChatButton" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/friend1ChatButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                    app:layout_constraintEnd_toStartOf="@+id/friend1StarButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/stat_notify_chat" />
+                    app:srcCompat="@android:drawable/stat_notify_chat"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/friend1StarButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                    app:layout_constraintEnd_toStartOf="@+id/friend1DeleteButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/star_off" />
+                    app:srcCompat="@android:drawable/star_off"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/friend1DeleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stream_ui_ic_delete" />
+                    app:srcCompat="@drawable/stream_ui_ic_delete"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -342,44 +351,41 @@
                     android:maxLines="1"
                     android:text="A Person"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintBottom_toBottomOf="@+id/friend2ChatButton"
+                    app:layout_constraintEnd_toStartOf="@+id/friend2ChatButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                    app:layout_constraintTop_toTopOf="@+id/friend2ChatButton" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/friend2ChatButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                    app:layout_constraintEnd_toStartOf="@+id/friend2StarButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/stat_notify_chat" />
+                    app:srcCompat="@android:drawable/stat_notify_chat"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/friend2StarButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                    app:layout_constraintEnd_toStartOf="@+id/friend2DeleteButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/star_off" />
+                    app:srcCompat="@android:drawable/star_off"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/friend2DeleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stream_ui_ic_delete" />
+                    app:srcCompat="@drawable/stream_ui_ic_delete"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/bLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="B" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -395,56 +401,41 @@
                     android:maxLines="1"
                     android:text="Bob the Builder"
                     android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+                    app:layout_constraintBottom_toBottomOf="@+id/friend3ChatButton"
+                    app:layout_constraintEnd_toStartOf="@+id/friend3ChatButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/imageButton2" />
+                    app:layout_constraintTop_toTopOf="@+id/friend3ChatButton" />
 
                 <ImageButton
-                    android:id="@+id/imageButton2"
+                    android:id="@+id/friend3ChatButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                    app:layout_constraintEnd_toStartOf="@+id/friend3StarButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/stat_notify_chat" />
+                    app:srcCompat="@android:drawable/stat_notify_chat"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/friend3StarButton"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_weight="1"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                    app:layout_constraintEnd_toStartOf="@+id/friend3DeleteButton"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:drawable/star_off" />
+                    app:srcCompat="@android:drawable/star_off"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/friend3DeleteButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_weight="1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/stream_ui_ic_delete" />
+                    app:srcCompat="@drawable/stream_ui_ic_delete"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/cLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="C" />
-
-            <TextView
-                android:id="@+id/dLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="D" />
-
-            <TextView
-                android:id="@+id/ELabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="E" />
 
         </LinearLayout>
     </ScrollView>
