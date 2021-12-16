@@ -118,6 +118,7 @@ class MainActivity : AppCompatActivity() {
             }
         } catch (e: Exception){
             print("nah\n")
+            println(e.toString())
         }
 
         //Login Button!
