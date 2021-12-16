@@ -111,14 +111,15 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        /*//if we are already logged in, do it
+        //if we are already logged in, do it
         try{
             if (sp.getBoolean("logged", false)) {
-                login(client, sp.getString("currUser", "")!!, "b67pax5b2wdq") //login using stored user
+                login(sp.getString("currUser", "")!!, "b67pax5b2wdq") //login using stored user
             }
         } catch (e: Exception){
             print("nah\n")
-        }*/
+            println(e.toString())
+        }
 
         //Login Button!
         binding.button.setOnClickListener {

@@ -26,6 +26,8 @@ class ChannelActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        println("AY YO")
+
         // Step 0 - inflate binding
         binding = ActivityChannelBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -1,5 +1,6 @@
 package com.example.superchat
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -20,15 +21,17 @@ class Chat : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+
         val binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val client = ChatClient.Builder("rckbpcsvzx36", applicationContext)
+        val cli = ChatClient.Builder("rckbpcsvzx36", applicationContext)
             .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
             .build()
-        ChatDomain.Builder(client, applicationContext).build()
+        ChatDomain.Builder(cli, applicationContext).build()
 
-        val cli = ChatClient.instance()
+        val client = ChatClient.instance()
 
         val user = User(
             id = intent.getStringExtra("uid")!!
@@ -55,12 +58,35 @@ class Chat : AppCompatActivity() {
             ChannelListViewModelFactory(filter, ChannelListViewModel.DEFAULT_SORT)
         val viewModel: ChannelListViewModel by viewModels { viewModelFactory }
 
-
         // Step 4 - Connect the ChannelListViewModel to the ChannelListView, loose
         //          coupling makes it easy to customize
         viewModel.bindView(binding.channelListView, this)
         binding.channelListView.setChannelItemClickListener { channel ->
             startActivity(ChannelActivity.newIntent(this, channel))
         }
+
+        binding.cc.setOnClickListener{
+            client.createChannel(
+                channelType = "messaging",
+                members = listOf("a@acom", user.id)
+            ).enqueue { result ->
+                if (result.isSuccess) {
+                    val channel = result.data()
+                } else {
+                    // Handle result.error()
+                }
+            }
+        }
+
+        binding.logout.setOnClickListener{
+            client.disconnect()
+            //go back to login
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onBackPressed() {
+        print("Rip bruh\n")
     }
 }
