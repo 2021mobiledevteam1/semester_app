@@ -4,6 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <io.getstream.chat.android.ui.channel.list.ChannelListView
+        android:id="@+id/channelListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <EditText
         android:id="@+id/loginEmailInput"
         android:layout_width="wrap_content"
@@ -33,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="214dp"
         android:text="@string/login_email_label"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="242dp"
         android:text="@string/login_password_label"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,10 +62,10 @@
 
     <TextView
         android:id="@+id/passwordLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="4dp"
         android:text="@string/login_no_account"
         android:textSize="16sp"
@@ -70,7 +78,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="160dp"
         android:text="@string/login_page_label"
         android:textSize="34sp"
@@ -83,36 +91,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginEnd="250dp"
         android:text="@string/login_signup_link"
         android:textSize="16sp"
-        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/passwordLabel"
-        app:layout_constraintTop_toTopOf="@+id/passwordLabel"
-        android:focusable="true" />
+        app:layout_constraintTop_toTopOf="@+id/passwordLabel" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="160dp"
         android:text="@string/login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
-    <!--<TextView
+    <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="93dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="94dp"
         android:text="@string/login_invalid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />-->
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

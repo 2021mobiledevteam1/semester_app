@@ -27,11 +27,13 @@ class Signup : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Step 1 - Set up the client for API calls and the domain for offline storage
-        val client = ChatClient.Builder("vnnjqybjbun8", applicationContext)
+        // Step 1 - Set up the client
+        val client = ChatClient.Builder("rckbpcsvzx36", applicationContext)
             .logLevel(ChatLogLevel.ALL) // Set to NOTHING in prod
             .build()
-        val staticClientRef = ChatClient.instance()
+        ChatDomain.Builder(client, applicationContext).build()
+
+        val cli = ChatClient.instance()
 
         //bind button
         binding.signupButton.setOnClickListener {
@@ -49,18 +51,20 @@ class Signup : AppCompatActivity() {
                 )
             )
 
+            print("Signing up user: $userInfo")
+
             //dev token so we dont need an endpoint
-            val token = staticClientRef.devToken(userInfo.id)
+            val token = cli.devToken(userInfo.id)
 
             //unless.. Maybe create token for this user unless we decide against it but-
 
             //TODO: Check to see if this user already exists based on id
 
             // create user
-            staticClientRef.connectUser(userInfo, token).enqueue { /* ... */ }
+            cli.connectUser(userInfo, token).enqueue { /* ... */ }
             print("HERE!!!\n")
             print("Token: $token\n")
-            staticClientRef.disconnect() //logout right away
+            cli.disconnect() //logout right away
 
             //go back to login
             val intent = Intent(this, m::class.java)
