@@ -3,20 +3,27 @@ package com.example.superchat
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.superchat.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.api.models.QueryUsersRequest
 import io.getstream.chat.android.client.logger.ChatLogLevel
 import io.getstream.chat.android.client.models.Filters
 import io.getstream.chat.android.client.models.User
 import io.getstream.chat.android.livedata.ChatDomain
-
+//import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var toggle: ActionBarDrawerToggle // will be initialized later
+
 
     private lateinit var binding: ActivityMainBinding
     //private lateinit var db: TheRoom.AppDatabase
@@ -93,21 +100,42 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Incorrect password!", Toast.LENGTH_SHORT)
                     .show()
             }
-            }
+    }
 
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-
-        //Shared Preferences for login state
-        val sp: SharedPreferences = getPreferences(MODE_PRIVATE)
 
         // Step 0 - inflate binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
+
+        // This is for the menu navigation bar
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.myFriends -> Toast.makeText(applicationContext, "My Friends", Toast.LENGTH_SHORT).show()
+                R.id.addFriends -> Toast.makeText(applicationContext, "Add Friends",  Toast.LENGTH_SHORT).show()
+                R.id.viewConversations -> Toast.makeText(applicationContext, "Conversations", Toast.LENGTH_SHORT).show()
+                R.id.logout -> Toast.makeText(applicationContext, "Logout",  Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+
+
+        //Shared Preferences for login state
+        val sp: SharedPreferences = getPreferences(MODE_PRIVATE)
 
 
 
@@ -135,5 +163,13 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }// end login button
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 
 }

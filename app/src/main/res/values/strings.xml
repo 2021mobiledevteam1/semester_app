@@ -2,6 +2,10 @@
     <!-- This is the text display at the top of the screen -->
     <string name="app_name">SuperChat</string>
 
+    <!-- Menu ######################################################################## -->
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
     <!-- Login Page ################################################################## -->
     <string name="login_page_label">Log in</string>
     <string name="login_email_label">Email Address: </string>
@@ -11,9 +15,7 @@
     <string name="login_password_placeholder">Password</string>
 
     <string name="login_no_account">Don\'t have an account?</string>
-    <string name="login_signup_link">Sign up</string>
-
-    <string name="login_invalid">Invalid credentials. Please try again.</string>
+    <string name="login_signup_link"><u>Sign up</u></string>
 
     <string name="login_button">Log in</string>
     <string name="title_activity_signup">signup</string>
@@ -42,7 +44,7 @@
     <string name="signup_passwordConfirm_placeholder">Password</string>
 
     <string name="signup_has_account">Already have an account?</string>
-    <string name="signup_login_link">Log in</string>
+    <string name="signup_login_link"><u>Log in</u></string>
 
     <string name="signup_invalid">Invalid credentials. Please try again.</string>
     <string name="signup_button">Sign up</string>
@@ -50,5 +52,5 @@
     <string name="email">Email</string>
     <string name="create_channel">Create Channel</string>
     <string name="logout">Logout</string>
-    <!--    <string name="signup_activity_signup">signup</string>-->
+
 </resources>
