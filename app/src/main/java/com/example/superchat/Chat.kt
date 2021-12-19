@@ -13,6 +13,8 @@ import androidx.core.view.get
 import com.example.superchat.databinding.ActivityChatBinding
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.api.models.QueryUsersRequest
+import io.getstream.chat.android.client.call.await
+import io.getstream.chat.android.client.call.enqueue
 import io.getstream.chat.android.client.logger.ChatLogLevel
 import io.getstream.chat.android.client.models.ChannelInfo
 import io.getstream.chat.android.client.models.Filters
@@ -22,8 +24,10 @@ import io.getstream.chat.android.livedata.ChatDomain
 import io.getstream.chat.android.ui.channel.list.viewmodel.ChannelListViewModel
 import io.getstream.chat.android.ui.channel.list.viewmodel.bindView
 import io.getstream.chat.android.ui.channel.list.viewmodel.factory.ChannelListViewModelFactory
+import okhttp3.internal.wait
 
 class Chat : AppCompatActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +36,9 @@ class Chat : AppCompatActivity() {
         //Shared Preferences for login state
         val sp: SharedPreferences = getSharedPreferences("loggy", MODE_PRIVATE)
         val pe = sp.edit()
+
+        //for user auth CLIENT SIDE GROSS
+        val uReg: SharedPreferences = getSharedPreferences(intent.getStringExtra("uid"), MODE_PRIVATE)
 
         val binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -42,37 +49,26 @@ class Chat : AppCompatActivity() {
         ChatDomain.Builder(cli, applicationContext).build()
 
         val client = ChatClient.instance()
-
-        lateinit var user: User
-
-        val me = intent.getStringExtra("uid")
-        // Search for users with id "john", "jack", or "jessie"
-        val request = QueryUsersRequest(
-            filter = Filters.`in`("id", me!!),
-            offset = 0,
-            limit = 1,
+        val user = User(
+            id = uReg.getString("uid", "")!!,
+            extraData = mutableMapOf(
+                "name" to uReg.getString("nickname", "")!!,
+                "password" to uReg.getString("pass", "")!!,
+                "pfp" to uReg.getString("pfp", "")!!
+            )
         )
 
-        client.queryUsers(request).enqueue { result ->
-            if (result.isSuccess) {
-                val users: List<User> = result.data()
-                user = users[0]
-            } else {
-                //store logged in prefs
-                pe.putBoolean("logged", false).apply()
-                pe.putString("currUser", "").apply() //put user id into user prefs
-                //go back to login
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }
-        }
+        val me = intent.getStringExtra("uid")
+        println("ME: $me")
+
 
         val token = intent.getStringExtra("token")!!
+
 
         client.connectUser(
             user = user,
             token = token
-        ).enqueue {/* ... */}
+        ).enqueue {/* ... */ }
 
         print("Connected user successfully!\n")
         println(user)
@@ -106,7 +102,7 @@ class Chat : AppCompatActivity() {
 
 
 
-        binding.cc.setOnClickListener{
+        binding.cc.setOnClickListener {
             client.createChannel(
                 channelType = "messaging",
                 members = listOf("a@acom", user.id)
@@ -121,7 +117,7 @@ class Chat : AppCompatActivity() {
             }
         }
 
-        binding.logout.setOnClickListener{
+        binding.logout.setOnClickListener {
             client.disconnect()
 
             //store logged in prefs

@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity() {
         val sp: SharedPreferences = getSharedPreferences("loggy", MODE_PRIVATE)
         val pe = sp.edit()
 
+        //for user auth CLIENT SIDE GROSS
+        val uReg: SharedPreferences = getSharedPreferences(uid, MODE_PRIVATE)
+
 
         // Step 1 - Set up the client for API calls and the domain for offline storage
         val cliento = ChatClient.Builder("rckbpcsvzx36", applicationContext)
@@ -68,12 +71,11 @@ class MainActivity : AppCompatActivity() {
                             .show()
                     }
                 }*/
-            client.disconnect()
 
             val user = User(
                 id = uid,
                 extraData = mutableMapOf(
-                    "password" to pwTxt
+                    "password" to uReg.getString("pass", "INVALID").toString()
                 )
             )
             val token = client.devToken(user.id)
