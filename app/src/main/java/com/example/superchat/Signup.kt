@@ -98,5 +98,12 @@ class Signup : AppCompatActivity() {
             val intent = Intent(this, m::class.java)
             startActivity(intent)
         } //end button binding
+
+        //Login link
+        binding.signupLoginLink.setOnClickListener{
+            //go to signup
+            val intent = Intent(this, m::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -22,9 +22,6 @@ import io.getstream.chat.android.livedata.ChatDomain
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var toggle: ActionBarDrawerToggle // will be initialized later
-
-
     private lateinit var binding: ActivityMainBinding
     //private lateinit var db: TheRoom.AppDatabase
 
@@ -50,62 +47,32 @@ class MainActivity : AppCompatActivity() {
         ChatDomain.Builder(cliento, applicationContext).build()
 
         val client = ChatClient.instance()
-        /*
 
-            var user = User(
-                id = uid
+
+        val user = User(
+            id = uid,
+            extraData = mutableMapOf(
+                "password" to uReg.getString("pass", "INVALID").toString()
             )
-            //connect user
-                //connect user
-                    val token = client.devToken(user.id)
-                    print("LOGIN TOKEN!! $token\n")
-            client.connectUser(
-                    user = user,
-                    token = token
-                ).enqueue {/* ... */}
+        )
+        val token = client.devToken(user.id)
 
-                val authR = QueryUsersRequest(
-                    filter = Filters.eq("id", user.id),
-                    offset = 0,
-                    limit = 1
-                )
-                client.queryUsers(authR).enqueue { result ->
-                    if(result.isSuccess) {
-                        print("Here! Result id = ${result.data()[0]}\n")
-                        user = result.data()[0]
-                    } else {
-                        Toast.makeText(this@MainActivity, "No user found..", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }*/
+        if (user.extraData["password"].toString() == pwTxt || pwTxt == "b67pax5b2wdq") {
+            //store logged in prefs
+            pe.putBoolean("logged", true).apply()
+            pe.putString("currUser", user.id).apply() //put user id into user prefs
 
-            val user = User(
-                id = uid,
-                extraData = mutableMapOf(
-                    "password" to uReg.getString("pass", "INVALID").toString()
-                )
-            )
-            val token = client.devToken(user.id)
-
-            if (user.extraData["password"].toString() == pwTxt || pwTxt == "b67pax5b2wdq") {
-                //store logged in prefs
-                pe.putBoolean("logged", true).apply()
-                pe.putString("currUser", user.id).apply() //put user id into user prefs
-
-                print("Going to the channel List\n")
-                //TODO Connects just fine, now we need to get it to display channels
-                val inte = Intent(this, Chat::class.java)
-                inte.putExtra("uid", user.id)
-                inte.putExtra("token", token)
-                startActivity(inte)
-            } else {
-                Toast.makeText(this@MainActivity, "Incorrect password!", Toast.LENGTH_SHORT)
-                    .show()
-            }
+            print("Going to the channel List\n")
+            //TODO Connects just fine, now we need to get it to display channels
+            val inte = Intent(this, Chat::class.java)
+            inte.putExtra("uid", user.id)
+            inte.putExtra("token", token)
+            startActivity(inte)
+        } else {
+            Toast.makeText(this@MainActivity, "Incorrect password!", Toast.LENGTH_SHORT)
+                .show()
+        }
     }
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,32 +83,6 @@ class MainActivity : AppCompatActivity() {
         // Step 0 - inflate binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
-
-        // This is for the menu navigation bar
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        navView.setNavigationItemSelectedListener {
-            when(it.itemId) {
-                R.id.myFriends -> Toast.makeText(applicationContext, "My Friends", Toast.LENGTH_SHORT).show()
-                R.id.addFriends -> Toast.makeText(applicationContext, "Add Friends",  Toast.LENGTH_SHORT).show()
-                R.id.viewConversations -> Toast.makeText(applicationContext, "Conversations", Toast.LENGTH_SHORT).show()
-                R.id.logout -> Toast.makeText(applicationContext, "Logout",  Toast.LENGTH_SHORT).show()
-            }
-            true
-        }
-
-
-        //Shared Preferences for login state
-        val sp: SharedPreferences = getPreferences(MODE_PRIVATE)
-
 
 
         //if we are already logged in, do it
@@ -172,12 +113,5 @@ class MainActivity : AppCompatActivity() {
         }
     }// end login button
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
 
 }

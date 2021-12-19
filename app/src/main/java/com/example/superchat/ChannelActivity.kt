@@ -1,18 +1,28 @@
+// This Class is for the chat messaging between users
+
 package com.example.superchat
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.superchat.databinding.ActivityChannelBinding
 import com.getstream.sdk.chat.viewmodel.MessageInputViewModel
 import com.getstream.sdk.chat.viewmodel.messages.MessageListViewModel
 import com.getstream.sdk.chat.viewmodel.messages.MessageListViewModel.Mode.Normal
 import com.getstream.sdk.chat.viewmodel.messages.MessageListViewModel.Mode.Thread
 import com.getstream.sdk.chat.viewmodel.messages.MessageListViewModel.State.NavigateUp
+import com.google.android.material.navigation.NavigationView
+import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.models.Channel
+import io.getstream.chat.android.client.models.User
 import io.getstream.chat.android.ui.message.input.viewmodel.bindView
 import io.getstream.chat.android.ui.message.list.header.viewmodel.MessageListHeaderViewModel
 import io.getstream.chat.android.ui.message.list.header.viewmodel.bindView
@@ -20,6 +30,8 @@ import io.getstream.chat.android.ui.message.list.viewmodel.bindView
 import io.getstream.chat.android.ui.message.list.viewmodel.factory.MessageListViewModelFactory
 
 class ChannelActivity : AppCompatActivity() {
+
+    lateinit var toggle: ActionBarDrawerToggle // will be initialized later
 
     private lateinit var binding: ActivityChannelBinding
 
@@ -35,6 +47,17 @@ class ChannelActivity : AppCompatActivity() {
         val cid = checkNotNull(intent.getStringExtra(CID_KEY)) {
             "Specifying a channel id is required when starting ChannelActivity"
         }
+
+
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
+
+        // This is for the menu navigation bar
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Step 1 - Create three separate ViewModels for the views so it's easy
         //          to customize them individually

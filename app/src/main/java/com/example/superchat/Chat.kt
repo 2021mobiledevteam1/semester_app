@@ -1,3 +1,5 @@
+// This Class is for the conversation history display for a user
+
 package com.example.superchat
 
 import android.content.Intent
@@ -7,10 +9,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.get
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.superchat.databinding.ActivityChatBinding
+import com.google.android.material.navigation.NavigationView
 import io.getstream.chat.android.client.ChatClient
 import io.getstream.chat.android.client.api.models.QueryUsersRequest
 import io.getstream.chat.android.client.call.await
@@ -28,6 +33,7 @@ import okhttp3.internal.wait
 
 class Chat : AppCompatActivity() {
 
+    lateinit var toggle: ActionBarDrawerToggle // will be initialized later
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,15 +123,37 @@ class Chat : AppCompatActivity() {
             }
         }
 
-        binding.logout.setOnClickListener {
-            client.disconnect()
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
 
-            //store logged in prefs
-            pe.putBoolean("logged", false).apply()
-            pe.putString("currUser", "").apply() //put user id into user prefs
-            //go back to login
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+        // This is for the menu navigation bar
+        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId) {
+                R.id.myFriends ->
+                    Toast.makeText(applicationContext, "My Friends", Toast.LENGTH_SHORT).show()
+                R.id.addFriends ->
+                    Toast.makeText(applicationContext, "Add Friends",  Toast.LENGTH_SHORT).show()
+                R.id.viewConversations ->
+                    Toast.makeText(applicationContext, "Conversations", Toast.LENGTH_SHORT).show()
+                R.id.logout ->
+                    {
+                        client.disconnect()
+
+                        //store logged in prefs
+                        pe.putBoolean("logged", false).apply()
+                        pe.putString("currUser", "").apply() //put user id into user prefs
+                        //go back to login
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+            }
+            true
         }
 
     }
@@ -133,5 +161,13 @@ class Chat : AppCompatActivity() {
 
     override fun onBackPressed() {
         print("Rip bruh\n")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
