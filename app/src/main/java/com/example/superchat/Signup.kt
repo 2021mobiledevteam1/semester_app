@@ -1,5 +1,6 @@
 package com.example.superchat
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +18,22 @@ import com.example.superchat.Friend
 
 class Signup : AppCompatActivity() {
 
+    public fun saveArray(array: ArrayList<String>, arrayName: String, mContext: Context, sPrefName: String): Boolean {
+        val prefs: SharedPreferences = mContext.getSharedPreferences(sPrefName, MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putInt(arrayName + "_size", array.size)
+        for (i in array.indices) editor.putString(arrayName + "_" + i, array[i])
+        return editor.commit()
+    }
+
+    public fun loadArray(arrayName: String, mContext: Context, sPrefName: String): ArrayList<String?> {
+        val prefs = mContext.getSharedPreferences(sPrefName, 0)
+        val size = prefs.getInt(arrayName + "_size", 0)
+        val array = arrayOfNulls<String>(size)
+        for (i in 0 until size) array[i] = prefs.getString(arrayName + "_" + i, null)
+        return array.toCollection(ArrayList())
+    }
+
     private lateinit var binding: ActivitySignupBinding
 
     private lateinit var userInfo: User
@@ -26,6 +43,7 @@ class Signup : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         // Step 1 - Set up the client
         val client = ChatClient.Builder("rckbpcsvzx36", applicationContext)
@@ -43,10 +61,8 @@ class Signup : AppCompatActivity() {
             userInfo = User(
                 id = binding.signupEmailAddress.text.toString().replace(".", ""), //temporary? we might wanna use the email as ID or otherwise we can set the email as "name" and programmatically generate ids or smth
                 extraData = mutableMapOf(
-                    "name" to binding.signupEmailAddress.text.toString(), //unique email username
-                    "nickname" to binding.editTextTextPersonName.text.toString(), //nickname can be non-unique. It doesn't matter what your nickname is!
+                    "name" to binding.editTextTextPersonName.text.toString(), //nickname can be non-unique. It doesn't matter what your nickname is!
                     "password" to binding.editTextTextPassword2.text.toString(), //password may need hashing of some sort
-                    "friends" to ArrayList<Friend>(), //empty arraylist to store references to friend IDs! Stores a friend object
                     "pfp" to "" //Store b64 string for downscaled profile picture
                 )
             )
@@ -64,7 +80,19 @@ class Signup : AppCompatActivity() {
             cli.connectUser(userInfo, token).enqueue { /* ... */ }
             print("HERE!!!\n")
             print("Token: $token\n")
+
+
             cli.disconnect() //logout right away
+
+            //for user auth CLIENT SIDE GROSS
+            val uReg: SharedPreferences = getSharedPreferences(userInfo.id, MODE_PRIVATE)
+            val regEdit = uReg.edit()
+
+            regEdit.putString("uid", userInfo.id).apply()
+            regEdit.putString("nickname", userInfo.name).apply()
+            regEdit.putString("pass", userInfo.getExtraValue("password", "INVALID")).apply()
+            regEdit.putString("pfp", userInfo.getExtraValue("pfp", "INVALID")).apply()
+
 
             //go back to login
             val intent = Intent(this, m::class.java)
