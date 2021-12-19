@@ -56,47 +56,53 @@ class Signup : AppCompatActivity() {
         //bind button
         binding.signupButton.setOnClickListener {
             //TODO: Test to make sure all values are valid. Passwords must match and no fields should be empty. We can possibly use Android XML to make things required, but password matching might need to be here
+            val idInp = binding.signupEmailAddress.text.toString().replace(".", "")
+            val nameInp = binding.editTextTextPersonName.text.toString()
+            val passInp = binding.editTextTextPassword2.text.toString()
+            val passConf = binding.editTextTextPassword3.text.toString()
 
-            //create user!
-            userInfo = User(
-                id = binding.signupEmailAddress.text.toString().replace(".", ""), //temporary? we might wanna use the email as ID or otherwise we can set the email as "name" and programmatically generate ids or smth
-                extraData = mutableMapOf(
-                    "name" to binding.editTextTextPersonName.text.toString(), //nickname can be non-unique. It doesn't matter what your nickname is!
-                    "password" to binding.editTextTextPassword2.text.toString(), //password may need hashing of some sort
-                    "pfp" to "" //Store b64 string for downscaled profile picture
+            if(idInp != "" && nameInp != "" && passInp != "" && passInp == passConf) {
+                //create user!
+                userInfo = User(
+                    id = idInp, //temporary? we might wanna use the email as ID or otherwise we can set the email as "name" and programmatically generate ids or smth
+                    extraData = mutableMapOf(
+                        "name" to nameInp, //nickname can be non-unique. It doesn't matter what your nickname is!
+                        "password" to passInp, //password may need hashing of some sort
+                        "pfp" to "" //Store b64 string for downscaled profile picture
+                    )
                 )
-            )
 
-            print("Signing up user: $userInfo")
+                print("Signing up user: $userInfo")
 
-            //dev token so we dont need an endpoint
-            val token = cli.devToken(userInfo.id)
+                //dev token so we dont need an endpoint
+                val token = cli.devToken(userInfo.id)
 
-            //unless.. Maybe create token for this user unless we decide against it but-
+                //unless.. Maybe create token for this user unless we decide against it but-
 
-            //TODO: Check to see if this user already exists based on id
+                //TODO: Check to see if this user already exists based on id
 
-            // create user
-            cli.connectUser(userInfo, token).enqueue { /* ... */ }
-            print("HERE!!!\n")
-            print("Token: $token\n")
-
-
-            cli.disconnect() //logout right away
-
-            //for user auth CLIENT SIDE GROSS
-            val uReg: SharedPreferences = getSharedPreferences(userInfo.id, MODE_PRIVATE)
-            val regEdit = uReg.edit()
-
-            regEdit.putString("uid", userInfo.id).apply()
-            regEdit.putString("nickname", userInfo.name).apply()
-            regEdit.putString("pass", userInfo.getExtraValue("password", "INVALID")).apply()
-            regEdit.putString("pfp", userInfo.getExtraValue("pfp", "INVALID")).apply()
+                // create user
+                cli.connectUser(userInfo, token).enqueue { /* ... */ }
+                print("HERE!!!\n")
+                print("Token: $token\n")
 
 
-            //go back to login
-            val intent = Intent(this, m::class.java)
-            startActivity(intent)
+                cli.disconnect() //logout right away
+
+                //for user auth CLIENT SIDE GROSS
+                val uReg: SharedPreferences = getSharedPreferences(userInfo.id, MODE_PRIVATE)
+                val regEdit = uReg.edit()
+
+                regEdit.putString("uid", userInfo.id).apply()
+                regEdit.putString("nickname", userInfo.name).apply()
+                regEdit.putString("pass", userInfo.getExtraValue("password", "INVALID")).apply()
+                regEdit.putString("pfp", userInfo.getExtraValue("pfp", "INVALID")).apply()
+
+
+                //go back to login
+                val intent = Intent(this, m::class.java)
+                startActivity(intent)
+            }
         } //end button binding
 
         //Login link
