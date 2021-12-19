@@ -52,5 +52,8 @@
     <string name="email">Email</string>
     <string name="create_channel">Create Channel</string>
     <string name="logout">Logout</string>
-
+    <string name="view_members">View Members</string>
+    <string name="add_someone">Add Someone</string>
+    <string name="leave">Leave</string>
+    <!--    <string name="signup_activity_signup">signup</string>-->
 </resources>

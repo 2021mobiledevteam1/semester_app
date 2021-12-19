@@ -36,8 +36,11 @@ class MainActivity : AppCompatActivity() {
      */
     private fun login(uid: String, pwTxt: String) {
         //Shared Preferences for login state
-        val sp: SharedPreferences = getPreferences(MODE_PRIVATE)
+        val sp: SharedPreferences = getSharedPreferences("loggy", MODE_PRIVATE)
         val pe = sp.edit()
+
+        //for user auth CLIENT SIDE GROSS
+        val uReg: SharedPreferences = getSharedPreferences(uid, MODE_PRIVATE)
 
 
         // Step 1 - Set up the client for API calls and the domain for offline storage
@@ -75,12 +78,11 @@ class MainActivity : AppCompatActivity() {
                             .show()
                     }
                 }*/
-            client.disconnect()
 
             val user = User(
                 id = uid,
                 extraData = mutableMapOf(
-                    "password" to pwTxt
+                    "password" to uReg.getString("pass", "INVALID").toString()
                 )
             )
             val token = client.devToken(user.id)
@@ -92,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
                 print("Going to the channel List\n")
                 //TODO Connects just fine, now we need to get it to display channels
-                var inte = Intent(this, Chat::class.java)
+                val inte = Intent(this, Chat::class.java)
                 inte.putExtra("uid", user.id)
                 inte.putExtra("token", token)
                 startActivity(inte)
@@ -107,6 +109,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Shared Preferences for login state
+        val sp: SharedPreferences = getSharedPreferences("loggy", MODE_PRIVATE)
 
         // Step 0 - inflate binding
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -142,7 +147,10 @@ class MainActivity : AppCompatActivity() {
         //if we are already logged in, do it
         try{
             if (sp.getBoolean("logged", false)) {
+                println("big bruh moment")
                 login(sp.getString("currUser", "")!!, "b67pax5b2wdq") //login using stored user
+            } else {
+                println("bruh")
             }
         } catch (e: Exception){
             print("nah\n")
