@@ -115,7 +115,7 @@ class Chat : AppCompatActivity() {
             ).enqueue { result ->
                 if (result.isSuccess) {
                     val channel = result.data()
-                    startActivity(ChannelActivity.newIntent(this, channel))
+                    //startActivity(ChannelActivity.newIntent(this, channel))
                 } else {
                     Toast.makeText(this@Chat, "Could not make the channel!", Toast.LENGTH_SHORT)
                         .show()
