@@ -116,12 +116,12 @@ class ChannelActivity : AppCompatActivity() {
             var friendToInvite= ""
 
             val input = EditText(this)
-            input.setHint("Enter Text")
+            input.setHint("Enter Friend's Email")
             input.inputType = InputType.TYPE_CLASS_TEXT
             builder.setView(input)
 
             builder.setPositiveButton("Send") { dialog, which ->
-                friendToInvite = input.text.toString()
+                friendToInvite = input.text.toString().replace(".", "")
 
                 println(friendToInvite + "POG")
                 val channelClient = client.channel(cid)
