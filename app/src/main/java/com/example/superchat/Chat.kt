@@ -41,7 +41,6 @@ class Chat : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
 
         //Shared Preferences for login state
         val sp: SharedPreferences = getSharedPreferences("loggy", MODE_PRIVATE)
@@ -70,9 +69,8 @@ class Chat : AppCompatActivity() {
 
         val me = intent.getStringExtra("uid")
         println("ME: $me")
-
-
         val token = intent.getStringExtra("token")!!
+
         user.role = "ADMIN"
 
         client.connectUser(
@@ -144,7 +142,7 @@ class Chat : AppCompatActivity() {
 
         fun createDialogue(){
             val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setTitle("What would you like to call this chat?")
+            builder.setTitle("What would you like to name this chat?")
 
             var chanName= ""
 
@@ -202,18 +200,16 @@ class Chat : AppCompatActivity() {
                 {
                     // Go to Manage Friends activity
                     val intent = Intent(this, ManageFriends::class.java)
+                    intent.putExtra("uid", user.id)
+                    intent.putExtra("token", token)
                     startActivity(intent)
                 }
                 R.id.addFriends ->
                 {
                     // Go to Channel activity
                     val intent = Intent(this, AddFriends::class.java)
-                    startActivity(intent)
-                }
-                R.id.viewConversations ->
-                {
-                    // Go to Channel activity
-                    val intent = Intent(this, Chat::class.java)
+                    intent.putExtra("uid", user.id)
+                    intent.putExtra("token", token)
                     startActivity(intent)
                 }
                 R.id.logout ->

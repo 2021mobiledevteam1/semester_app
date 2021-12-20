@@ -11,31 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/cc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/create_channel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.065"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023" />
-
         <io.getstream.chat.android.ui.channel.list.ChannelListView
             android:id="@+id/channelListView"
-            android:layout_width="414dp"
-            android:layout_height="645dp"
-            android:layout_marginTop="80dp"
-            app:streamUiChannelOptionsEnabled="true"
+            android:layout_width="408dp"
+            android:layout_height="693dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintVertical_bias="0.0"
+            app:streamUiChannelOptionsEnabled="true">
 
         </io.getstream.chat.android.ui.channel.list.ChannelListView>
+
+        <ImageButton
+            android:id="@+id/cc"
+            android:layout_width="72dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="6dp"
+            android:contentDescription="@string/create_channel"
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.952"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.975"
+            app:srcCompat="@drawable/stream_ui_ic_file_manager" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
