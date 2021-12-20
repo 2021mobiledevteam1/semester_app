@@ -5,7 +5,7 @@ package com.example.superchat
  * @param uid User id of the friend
  * @param favorite Stores whether or not the user is a best friend. Defaults to false
  */
-data class Friend(val uid: String, var favorite: Boolean? = false) {
+data class Friend(val uid: String, val nickname: String, var favorite: Boolean? = false) {
 
     /**
      * Toggles favorite variable
