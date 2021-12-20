@@ -52,15 +52,6 @@ class ChannelActivity : AppCompatActivity() {
         }
 
         val client = ChatClient.instance()
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
-
-        // This is for the menu navigation bar
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Step 1 - Create three separate ViewModels for the views so it's easy
         //          to customize them individually

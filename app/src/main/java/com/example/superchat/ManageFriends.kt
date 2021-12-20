@@ -26,6 +26,7 @@ class ManageFriends : AppCompatActivity() {
         val binding = ActivityChatBinding.inflate(layoutInflater)
         val client = ChatClient.instance()
 
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
 
