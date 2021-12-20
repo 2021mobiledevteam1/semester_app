@@ -15,16 +15,19 @@
         android:theme="@style/Theme.SuperChat">
         <activity
             android:name=".AddFriends"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".Chat"/>
         <activity
             android:name=".ChannelActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".Signup"
             android:exported="true"/>
         <activity
             android:name=".ManageFriends"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".Chat"/>
         <activity
             android:name=".Chat"
             android:exported="true" />
