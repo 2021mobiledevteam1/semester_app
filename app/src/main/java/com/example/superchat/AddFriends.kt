@@ -3,9 +3,9 @@ package com.example.superchat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class signup : AppCompatActivity() {
+class AddFriends : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_signup)
+        setContentView(R.layout.activity_add_friends)
     }
 }

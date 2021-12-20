@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/myFriends"
+        android:title="My Friends" />
+
+    <item
+        android:id="@+id/addFriends"
+        android:title="Add Friends" />
+
+    <item
+        android:id="@+id/viewConversations"
+        android:title="Conversations" />
+
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
+</menu>
