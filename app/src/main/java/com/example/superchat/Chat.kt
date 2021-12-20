@@ -136,11 +136,23 @@ class Chat : AppCompatActivity() {
         navView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.myFriends ->
-                    Toast.makeText(applicationContext, "My Friends", Toast.LENGTH_SHORT).show()
+                {
+                    // Go to Manage Friends activity
+                    val intent = Intent(this, ManageFriends::class.java)
+                    startActivity(intent)
+                }
                 R.id.addFriends ->
-                    Toast.makeText(applicationContext, "Add Friends",  Toast.LENGTH_SHORT).show()
+                {
+                    // Go to Channel activity
+                    val intent = Intent(this, AddFriends::class.java)
+                    startActivity(intent)
+                }
                 R.id.viewConversations ->
-                    Toast.makeText(applicationContext, "Conversations", Toast.LENGTH_SHORT).show()
+                {
+                    // Go to Channel activity
+                    val intent = Intent(this, Chat::class.java)
+                    startActivity(intent)
+                }
                 R.id.logout ->
                     {
                         client.disconnect()
