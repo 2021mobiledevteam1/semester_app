@@ -2,11 +2,14 @@
 
 package com.example.superchat
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.InputType
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -21,6 +24,7 @@ import io.getstream.chat.android.client.api.models.QueryUsersRequest
 import io.getstream.chat.android.client.call.await
 import io.getstream.chat.android.client.call.enqueue
 import io.getstream.chat.android.client.logger.ChatLogLevel
+import io.getstream.chat.android.client.models.Channel
 import io.getstream.chat.android.client.models.ChannelInfo
 import io.getstream.chat.android.client.models.Filters
 import io.getstream.chat.android.client.models.User
@@ -69,7 +73,7 @@ class Chat : AppCompatActivity() {
 
 
         val token = intent.getStringExtra("token")!!
-
+        user.role = "ADMIN"
 
         client.connectUser(
             user = user,
@@ -79,7 +83,6 @@ class Chat : AppCompatActivity() {
         print("Connected user successfully!\n")
         println(user)
 
-        user.role = "ADMIN"
 
         // Step 3 - Set the channel list filter and order
         // This can be read as requiring only channels whose "type" is "messaging" AND
@@ -101,26 +104,86 @@ class Chat : AppCompatActivity() {
             startActivity(ChannelActivity.newIntent(this, channel))
         }
 
+
+
+        fun inviteDialog(cid: String){
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder.setTitle("Invite Friend")
+
+            var friendToInvite= ""
+
+            val input = EditText(this)
+            input.setHint("Enter Friend's Email")
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            builder.setPositiveButton("Send") { dialog, which ->
+                friendToInvite = input.text.toString().replace(".", "")
+
+                println(friendToInvite + "POG")
+                val channelClient = cli.channel(cid)
+                channelClient.addMembers(friendToInvite).enqueue { result ->
+                    if (result.isSuccess) {
+                        val channel: Channel = result.data()
+                    } else {
+                        // Handle result.error()
+                    }
+                }
+            }
+            builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+
+            builder.show()
+        }
+
         binding.channelListView.setChannelLongClickListener { channel ->
             println("long press! channel = $channel")
+            inviteDialog(channel.cid)
             true
+        }
+
+
+        fun createDialogue(){
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder.setTitle("What would you like to call this chat?")
+
+            var chanName= ""
+
+            val input = EditText(this)
+            input.setHint("Enter Chat Name")
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            builder.setPositiveButton("Create") { dialog, which ->
+                chanName = input.text.toString()
+
+                chanName = chanName.replace("\\s".toRegex(), "")
+
+                println(chanName + "POG")
+
+                val chanCli = cli.channel(channelType = "messaging", channelId = chanName)
+                chanCli.create().enqueue { result ->
+                    if (result.isSuccess) {
+                        val newChannel: Channel = result.data()
+                        val channyCli = cli.channel(newChannel.cid)
+                        channyCli.update(extraData = mapOf("name" to chanName)).enqueue { result ->
+                            if(result.isSuccess){
+                                channyCli.addMembers(user.id).enqueue { /*...*/ }
+                            }
+                        }
+                    } else {
+                        println("a")
+                    }
+                }
+            }
+            builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+
+            builder.show()
         }
 
 
 
         binding.cc.setOnClickListener {
-            client.createChannel(
-                channelType = "messaging",
-                members = listOf("a@acom", user.id)
-            ).enqueue { result ->
-                if (result.isSuccess) {
-                    val channel = result.data()
-                    startActivity(ChannelActivity.newIntent(this, channel))
-                } else {
-                    Toast.makeText(this@Chat, "Could not make the channel!", Toast.LENGTH_SHORT)
-                        .show()
-                }
-            }
+            createDialogue()
         }
 
         val drawerLayout: DrawerLayout = binding.drawerLayout

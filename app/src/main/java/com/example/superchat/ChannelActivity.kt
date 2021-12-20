@@ -2,11 +2,14 @@
 
 package com.example.superchat
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.InputType
 import android.view.MenuItem
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.viewModels
@@ -48,7 +51,7 @@ class ChannelActivity : AppCompatActivity() {
             "Specifying a channel id is required when starting ChannelActivity"
         }
 
-
+        val client = ChatClient.instance()
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
 
@@ -105,7 +108,43 @@ class ChannelActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this) {
             backHandler()
         }
+
+        fun inviteDialog(){
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder.setTitle("Invite Friend")
+
+            var friendToInvite= ""
+
+            val input = EditText(this)
+            input.setHint("Enter Friend's Email")
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            builder.setPositiveButton("Send") { dialog, which ->
+                friendToInvite = input.text.toString().replace(".", "")
+
+                println(friendToInvite + "POG")
+                val channelClient = client.channel(cid)
+                channelClient.addMembers(friendToInvite).enqueue { result ->
+                    if (result.isSuccess) {
+                        val channel: Channel = result.data()
+                    } else {
+                        // Handle result.error()
+                    }
+                }
+            }
+            builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
+
+            builder.show()
+        }
+
+
+
+        binding.button.setOnClickListener {
+            inviteDialog()
+        }
     }
+
 
     companion object {
         private const val CID_KEY = "key:cid"
