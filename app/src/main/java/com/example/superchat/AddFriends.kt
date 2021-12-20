@@ -31,7 +31,7 @@ class AddFriends : AppCompatActivity() {
     lateinit var uReg: SharedPreferences
     val ourType = object : TypeToken<List<Friend>>() {}.type //funky stuff that allows conversion between generic and our dataclass
     lateinit var uEdit: SharedPreferences.Editor
-    lateinit var fList: String
+    lateinit var fList: List<Friend>
     lateinit var friendList: List<Friend>
 
 
@@ -150,11 +150,12 @@ class AddFriends : AppCompatActivity() {
                         findViewById<Button>(R.id.sendFriendRequest).setVisibility(View.VISIBLE) // Button to send request
                         findViewById<Button>(R.id.sendFriendRequest).setOnClickListener {
                             // TODO: update friends status
-                            uReg = getSharedPreferences(user.id, MODE_PRIVATE)
-                            uEdit = uReg.edit()
 
-                            fList = uReg.getString("friends", "")!!
+                           // uReg = getSharedPreferences(user.id, MODE_PRIVATE)
+                           // uEdit = uReg.edit()
 
+                            //fList = uReg.getString("friends", "")!!
+/*
                             val gson = Gson()
 
                             try {
@@ -171,19 +172,19 @@ class AddFriends : AppCompatActivity() {
                                 println("Error in try... " + e)
                                 friendList = listOf()
                             }
-
+                                */
 
                             //val newF = Friend(user.id, user.name)
                             // fList.add(newF) ---> not allowed
-                            fList += Friend(user.id, user.name)
-                            var list = gson.toJson(friendList)
-                            uEdit.putString("friends", list).commit()
+                            fList = fList + Friend(user.id, user.name)
+                            // var list = gson.toJson(friendList)
+                           // uEdit.putString("friends", list).apply()
 
                             //uEdit.putString("friends", fList)
                             Toast.makeText(this, "Added " + user.name, Toast.LENGTH_SHORT)
                                 .show()
 
-                            println("\n\nHERE IS MY FRIENDS" + list + "\n\n LEAVE ME BE")
+                            println("\n\nHERE IS MY FRIENDS" + fList + "\n\n LEAVE ME BE")
                         }
                         findViewById<Button>(R.id.cancelRequest).setVisibility(View.VISIBLE) // Button to cancel
                         findViewById<Button>(R.id.cancelRequest).setOnClickListener {
