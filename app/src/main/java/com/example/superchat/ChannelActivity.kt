@@ -108,10 +108,12 @@ class ChannelActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this) {
             backHandler()
         }
-        var friendToInvite= ""
+
         fun inviteDialog(){
             val builder: AlertDialog.Builder = AlertDialog.Builder(this)
             builder.setTitle("Invite Friend")
+
+            var friendToInvite= ""
 
             val input = EditText(this)
             input.setHint("Enter Text")
@@ -120,22 +122,26 @@ class ChannelActivity : AppCompatActivity() {
 
             builder.setPositiveButton("Send") { dialog, which ->
                 friendToInvite = input.text.toString()
+
+                println(friendToInvite + "POG")
+                val channelClient = client.channel(cid)
+                channelClient.addMembers(friendToInvite).enqueue { result ->
+                    if (result.isSuccess) {
+                        val channel: Channel = result.data()
+                    } else {
+                        // Handle result.error()
+                    }
+                }
             }
             builder.setNegativeButton("Cancel") { dialog, which -> dialog.cancel() }
 
             builder.show()
         }
 
+
+
         binding.button.setOnClickListener {
             inviteDialog()
-            val channelClient = client.channel("messaging", "general")
-            channelClient.addMembers(friendToInvite).enqueue { result ->
-                if (result.isSuccess) {
-                    val channel: Channel = result.data()
-                } else {
-                    // Handle result.error()
-                }
-            }
         }
     }
 
