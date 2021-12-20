@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -24,7 +25,16 @@
             app:layout_constraintBottom_toTopOf="@+id/messageInputView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/messageListHeaderView" />
+            app:layout_constraintTop_toBottomOf="@+id/messageListHeaderView" >
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invite"
+                tools:layout_editor_absoluteX="4dp"
+                tools:layout_editor_absoluteY="1dp" />
+        </io.getstream.chat.android.ui.message.list.MessageListView>
 
         <io.getstream.chat.android.ui.message.input.MessageInputView
             android:id="@+id/messageInputView"
