@@ -93,8 +93,8 @@ class Signup : AppCompatActivity() {
                 val uReg: SharedPreferences = getSharedPreferences(userInfo.id, MODE_PRIVATE)
                 val regEdit = uReg.edit()
 
-                regEdit.putString("uid", userInfo.id).apply()
-                regEdit.putString("nickname", userInfo.name).apply()
+                regEdit.putString("uid", userInfo.id).apply() //email
+                regEdit.putString("nickname", userInfo.name).apply() //nickname
                 regEdit.putString("pass", userInfo.getExtraValue("password", "INVALID")).apply()
                 regEdit.putString("pfp", userInfo.getExtraValue("pfp", "INVALID")).apply()
 
